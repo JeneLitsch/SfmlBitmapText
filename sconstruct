@@ -1,0 +1,65 @@
+def glob(dirs):
+	files = []
+	for dir in dirs:
+		files.append(Glob(dir + "/*.cxx"))
+		files.append(Glob(dir + "/*.cpp"))
+	return files
+
+flags = [
+	"-std=c++2a",
+	"-O3",
+	
+	"-W",
+	"-Wall",
+	"-Wextra",
+	"-pedantic",
+	"-Wpedantic",
+	"-pedantic-errors",
+	"-Wunused",
+	"-Wwrite-strings",
+	"-Wzero-length-array",
+	"-Wconversion",
+	"-Wunreachable-code",
+	"-Wuninitialized",
+	"-Wold-style-cast",
+	"-Walloca",
+	"-Wparentheses",
+	"-Wunreachable-code-aggressive",
+	"-Wno-unknown-pragmas"
+]
+
+libs = [
+	"-lpthread",
+	"-lsfml-graphics",
+	"-lsfml-audio",
+	"-lsfml-network",
+	"-lsfml-system",
+	"-lsfml-window",
+]
+
+comp = [
+	"sfx",
+	"test",
+]
+
+incl = [
+	".",
+]
+
+
+env = Environment(
+	CXX = "clang++",
+	# CXX = "g++",
+	CXXFLAGS = flags,
+	CPPPATH = incl,
+	CPPDEFINES = [],
+	LIBS = libs,
+	LIBPATH = ".",
+	SCONS_CXX_STANDART="c++20",
+	CXXCOMSTR = "[Compiling] $TARGET",
+	LINKCOMSTR = "[Linking] $TARGET")
+env.Program('bin/test', glob(comp))
+
+
+
+
