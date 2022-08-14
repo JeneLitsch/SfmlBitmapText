@@ -12,8 +12,10 @@ int main() {
 	sfx::BitmapText text;
 	text.setPosition(16,16);
 	text.setFont(font);
-	text.setString("Hello\nWorld!");
+	text.setString("Hello\n\tWorld\t!");
 	text.setCharacterSize(32);
+	text.setTabSize(2);
+	text.setFillColor(sf::Color::Red);
 
 	while(window.isOpen()) {
 		sf::Event event;

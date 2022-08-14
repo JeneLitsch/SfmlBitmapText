@@ -7,8 +7,20 @@ namespace sfx {
 
 
 
+	const sf::String & BitmapText::getString() const {
+		return this->string;
+	}
+
+
+
 	void BitmapText::setFont(const BitmapFont & font) {
 		this->font = &font;
+	}
+
+
+
+	const BitmapFont & BitmapText::getFont() const {
+		return *this->font;
 	}
 
 
@@ -31,6 +43,36 @@ namespace sfx {
 
 
 
+	unsigned BitmapText::getCharacterSize() const {
+		return this->char_size;
+	}
+
+
+
+	void BitmapText::setTabSize(unsigned indent) {
+		this->tab_indent = indent;
+	}
+
+
+
+	unsigned BitmapText::getTabSize() const {
+		return this->tab_indent;
+	}
+
+
+
+	void BitmapText::setFillColor(sf::Color color) {
+		this->color = color;
+	}
+
+
+
+	sf::Color BitmapText::getFillColor() const {
+		return this->color;
+	}
+
+
+
 	void BitmapText::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 		if(this->font) {
 			sf::VertexArray vertecies;
@@ -43,7 +85,7 @@ namespace sfx {
 					++iy;
 				}
 				else if(chr == '\t') {
-					ix += 4;
+					ix += this->tab_indent;
 				}
 				else if(std::isspace(static_cast<int>(chr))) {
 					++ix;
@@ -78,18 +120,22 @@ namespace sfx {
 					
 					vertecies.append(sf::Vertex{
 						{char_x1, char_y1},
+						color,
 						{glyph_x1, glyph_y1}});
 					
 					vertecies.append(sf::Vertex{
 						{char_x2, char_y1},
+						color,
 						{glyph_x2, glyph_y1}});
 					
 					vertecies.append(sf::Vertex{
 						{char_x2, char_y2},
+						color,
 						{glyph_x2, glyph_y2}});
 					
 					vertecies.append(sf::Vertex{
 						{char_x1, char_y2},
+						color,
 						{glyph_x1, glyph_y2}});
 
 					ix++;
