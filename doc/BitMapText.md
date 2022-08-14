@@ -9,7 +9,21 @@ Monospace Bitmap text that can be drawn to a render target.
 
 <br>
 
+
+## Inheritance
+
+sfx::BitmapText inherits from sf::Drawable and sf::Transformable.
+
+
+<br>
+
+---
+
+<br>
+
 ## Member functions
+
+Note: For transform functions consult documentation of sf::Transformable
 
 <br>
 
@@ -46,15 +60,6 @@ Retrieve the current font.
 ### void setPosition(sf::Vector2f position)
 Set position of the sfx::BitmapText.
 
-<br>
-
-### void setPosition(float x, float y)
-Set position of the sfx::BitmapText.
-
-<br>
-
-### sf::Vector2f getPosition() const
-Retrieve the current position.
 
 <br>
 

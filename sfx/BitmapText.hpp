@@ -2,7 +2,7 @@
 #include "sfx/BitmapFont.hpp"
 
 namespace sfx {
-	class BitmapText : public sf::Drawable {
+	class BitmapText : public sf::Drawable, public sf::Transformable {
 	public:
 		BitmapText() = default;
 		BitmapText(const BitmapText & text) = default;
@@ -13,10 +13,6 @@ namespace sfx {
 		void setFont(const BitmapFont & font);
 		const BitmapFont & getFont() const;
 	
-		void setPosition(sf::Vector2f position);
-		void setPosition(float x, float y);
-		sf::Vector2f getPosition() const;
-		
 		void setCharacterSize(unsigned size);
 		unsigned getCharacterSize() const;
 
@@ -32,7 +28,6 @@ namespace sfx {
 	private:
 		sf::String string;
 		sf::Color color = sf::Color::White;
-		sf::Vector2f position;
 		const BitmapFont * font = nullptr;
 		unsigned char_size = 0;
 		unsigned tab_indent = 4;

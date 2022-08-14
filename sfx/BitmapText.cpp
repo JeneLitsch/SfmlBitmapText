@@ -25,18 +25,6 @@ namespace sfx {
 
 
 
-	void BitmapText::setPosition(sf::Vector2f position) {
-		this->position = position;
-	}
-
-
-
-	void BitmapText::setPosition(float x, float y) {
-		this->setPosition({x,y});
-	}
-
-
-
 	void BitmapText::setCharacterSize(unsigned size) {
 		this->char_size = size;
 	}
@@ -112,8 +100,8 @@ namespace sfx {
 					const float glyph_y2 = static_cast<float>(glyph_size.y) + glyph_y1;
 
 					// character
-					const float char_x1 = static_cast<float>(ix) * csize.x + this->position.x;
-					const float char_y1 = static_cast<float>(iy) * csize.y + this->position.y;
+					const float char_x1 = static_cast<float>(ix) * csize.x;
+					const float char_y1 = static_cast<float>(iy) * csize.y;
 					const float char_x2 = csize.x + char_x1;
 					const float char_y2 = csize.y + char_y1;
 
@@ -141,6 +129,7 @@ namespace sfx {
 					ix++;
 				}
 			}
+			states.transform.combine(this->getTransform());
 			states.texture = &this->font->getTexture();
 			target.draw(vertecies, states);
 		}
