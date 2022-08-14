@@ -9,6 +9,8 @@ namespace sfx {
 
 		void setString(const sf::String & string);
 		const sf::String & getString() const; 
+
+		void setUtf8String(const std::string & string);
 		
 		void setFont(const BitmapFont & font);
 		const BitmapFont & getFont() const;

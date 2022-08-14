@@ -13,6 +13,12 @@ namespace sfx {
 
 
 
+	void BitmapText::setUtf8String(const std::string & string) {
+		this->setString(sf::String::fromUtf8(string.begin(), string.end()));
+	}
+
+
+
 	void BitmapText::setFont(const BitmapFont & font) {
 		this->font = &font;
 	}
