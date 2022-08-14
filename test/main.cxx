@@ -12,7 +12,7 @@ int main() {
 	sfx::BitmapText text;
 	text.setPosition(16,16);
 	text.setFont(font);
-	text.setString("Hello World!");
+	text.setString("Hello\nWorld!");
 	text.setCharacterSize(32);
 
 	while(window.isOpen()) {
