@@ -24,12 +24,17 @@ namespace sfx {
 		void setFillColor(sf::Color color);
 		sf::Color getFillColor() const;
 
+		sf::FloatRect getGlobalBounds() const;
+		sf::FloatRect getLocalBounds() const;
+
 	protected:
     	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
-	
+		
 	private:
+		void cacheGeometrie();
 		sf::String string;
 		sf::Color color = sf::Color::White;
+		sf::VertexArray vertecies;
 		const BitmapFont * font = nullptr;
 		unsigned char_scale = 0;
 		unsigned tab_indent = 4;

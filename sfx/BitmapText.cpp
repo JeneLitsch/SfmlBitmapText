@@ -3,6 +3,7 @@
 namespace sfx {
 	void BitmapText::setString(const sf::String & string) {
 		this->string = string;
+		cacheGeometrie();
 	}
 
 
@@ -21,6 +22,7 @@ namespace sfx {
 
 	void BitmapText::setFont(const BitmapFont & font) {
 		this->font = &font;
+		cacheGeometrie();
 	}
 
 
@@ -33,6 +35,7 @@ namespace sfx {
 
 	void BitmapText::setCharacterScale(unsigned scale) {
 		this->char_scale = scale;
+		cacheGeometrie();
 	}
 
 
@@ -45,6 +48,7 @@ namespace sfx {
 
 	void BitmapText::setTabSize(unsigned indent) {
 		this->tab_indent = indent;
+		cacheGeometrie();
 	}
 
 
@@ -57,6 +61,7 @@ namespace sfx {
 
 	void BitmapText::setFillColor(sf::Color color) {
 		this->color = color;
+		cacheGeometrie();
 	}
 
 
@@ -67,10 +72,21 @@ namespace sfx {
 
 
 
-	void BitmapText::draw(sf::RenderTarget & target, sf::RenderStates states) const {
+	sf::FloatRect BitmapText::getGlobalBounds() const {
+		return this->getTransform().transformRect(this->vertecies.getBounds());
+	}
+
+
+
+	sf::FloatRect BitmapText::getLocalBounds() const {
+		return this->vertecies.getBounds();
+	}
+
+
+	void BitmapText::cacheGeometrie() {
 		if(this->font) {
-			sf::VertexArray vertecies;
-			vertecies.setPrimitiveType(sf::Quads);
+			this->vertecies.clear();
+			this->vertecies.setPrimitiveType(sf::Quads);
 			for(std::size_t i = 0, ix = 0, iy = 0; i < this->string.getSize(); i++) {
 				const auto chr = string[i];
 
@@ -90,10 +106,6 @@ namespace sfx {
 
 					const auto glyph_size = this->font->getGlyphSize();
 
-					const float aspect_ratio 
-						= static_cast<float>(glyph_size.x)
-						/ static_cast<float>(glyph_size.y); 
-					
 					const auto csize = sf::Vector2f{
 						static_cast<float>(glyph_size.x * this->char_scale),
 						static_cast<float>(glyph_size.y * this->char_scale),
@@ -112,22 +124,22 @@ namespace sfx {
 					const float char_y2 = csize.y + char_y1;
 
 					
-					vertecies.append(sf::Vertex{
+					this->vertecies.append(sf::Vertex{
 						{char_x1, char_y1},
 						color,
 						{glyph_x1, glyph_y1}});
 					
-					vertecies.append(sf::Vertex{
+					this->vertecies.append(sf::Vertex{
 						{char_x2, char_y1},
 						color,
 						{glyph_x2, glyph_y1}});
 					
-					vertecies.append(sf::Vertex{
+					this->vertecies.append(sf::Vertex{
 						{char_x2, char_y2},
 						color,
 						{glyph_x2, glyph_y2}});
 					
-					vertecies.append(sf::Vertex{
+					this->vertecies.append(sf::Vertex{
 						{char_x1, char_y2},
 						color,
 						{glyph_x1, glyph_y2}});
@@ -135,9 +147,15 @@ namespace sfx {
 					ix++;
 				}
 			}
+		}
+	}
+
+
+	void BitmapText::draw(sf::RenderTarget & target, sf::RenderStates states) const {
+		if(this->font) {
 			states.transform.combine(this->getTransform());
 			states.texture = &this->font->getTexture();
-			target.draw(vertecies, states);
+			target.draw(this->vertecies, states);
 		}
 	}
 }
