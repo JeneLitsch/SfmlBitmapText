@@ -33,4 +33,16 @@ namespace sfx {
 	sf::Vector2u BitmapFont::getGlyphSize() const {
 		return this->size;
 	}
+
+
+	
+	void BitmapFont::setCapTop(int top) {
+		this->cap_top = top;
+	}
+
+
+
+	int BitmapFont::getCapTop() const {
+		return this->cap_top;
+	}
 }

@@ -101,15 +101,16 @@ namespace sfx {
 
 					// glyph
 					const float glyph_x1 = static_cast<float>(x * glyph_size.x);
-					const float glyph_y1 = static_cast<float>(y * glyph_size.y);
+					const float glyph_y1 = static_cast<float>(y * (glyph_size.y + this->font->getCapTop()));
 					const float glyph_x2 = static_cast<float>(glyph_size.x) + glyph_x1;
-					const float glyph_y2 = static_cast<float>(glyph_size.y) + glyph_y1;
+					const float glyph_y2 = static_cast<float>(glyph_size.y) + glyph_y1 + this->font->getCapTop();
 
 					// character
+					const float char_y0 = static_cast<float>(iy) * csize.y;
 					const float char_x1 = static_cast<float>(ix) * csize.x;
-					const float char_y1 = static_cast<float>(iy) * csize.y;
+					const float char_y1 = char_y0 - (static_cast<float>(this->font->getCapTop()) * static_cast<float>(char_size) / static_cast<float>(glyph_size.y));
 					const float char_x2 = csize.x + char_x1;
-					const float char_y2 = csize.y + char_y1;
+					const float char_y2 = csize.y + char_y0;
 
 					
 					vertecies.append(sf::Vertex{
