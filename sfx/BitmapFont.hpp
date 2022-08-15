@@ -19,12 +19,8 @@ namespace sfx {
 
 		sf::Vector2u getGlyphSize() const;
 
-		void setCapTop(int top);
-		int getCapTop() const;
-
 	private:
 		sf::Texture texture;
 		sf::Vector2u size = {0,0};
-		int cap_top = 0;
 	};
 }
